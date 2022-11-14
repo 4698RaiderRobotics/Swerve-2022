@@ -1,0 +1,16 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Ungrouped/DigitalInput[0]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[1]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[2]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[3]": "Digital Input",
+      "/Shuffleboard/Swerve Drive/Robot Wheel Status/Front Left Wheel Steering Angle": "Gyro",
+      "/Shuffleboard/Swerve Drive/Robot Wheel Status/Front Right Wheel Steering Angle": "Gyro",
+      "/Shuffleboard/Swerve Drive/Robot Wheel Status/Rear Left Wheel Steering Angle": "Gyro",
+      "/Shuffleboard/Swerve Drive/Robot Wheel Status/Rear Right Wheel Steering Angle": "Gyro",
+      "/SmartDashboard/Auto Modes": "String Chooser"
+    }
+  }
+}
