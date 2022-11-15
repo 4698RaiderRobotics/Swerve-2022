@@ -31,7 +31,7 @@ namespace physical {
     typedef units::unit_t<meters_per_rev> meters_per_rev_t;
 
     // The number of meters traveled per rotation of the drive motor
-    // wheel circumfernce / gear ratio
+    // wheel circumference / gear ratio
     constexpr meters_per_rev_t kDriveMetersPerRotation = wpi::numbers::pi * 4_in / (kDriveGearRatio *  1_tr );
 
     // Gear ratio of the turn motors. 12.8 rotations of the turning motor is one rotation of the swerve module.

@@ -15,6 +15,7 @@
 #include <frc/kinematics/SwerveDriveKinematics.h>
 #include <frc/filter/SlewRateLimiter.h>
 #include <frc/ADXRS450_Gyro.h>
+#include <ctre/phoenix/sensors/PigeonIMU.h>
 
 #include "SwerveModuleDisplay.h"
 #include "SwerveModule.h"
@@ -55,7 +56,7 @@ class Robot : public frc::TimedRobot {
   
   frc::ChassisSpeeds ch_speeds;
 
-  frc::ADXRS450_Gyro m_gyro{frc::SPI::Port::kOnboardCS0};
+  ctre::phoenix::sensors::PigeonIMU m_gyro{50};
 
   frc::Translation2d m_frontLeftLocation{ +( physical::kDriveBaseWidth / 2 ), +( physical::kDriveBaseWidth / 2 ) };
   frc::Translation2d m_frontRightLocation{ +( physical::kDriveBaseWidth / 2 ), -( physical::kDriveBaseWidth / 2 ) };

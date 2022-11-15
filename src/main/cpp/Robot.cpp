@@ -16,8 +16,7 @@ void Robot::RobotInit() {
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
-  m_gyro.Calibrate();
-  m_gyro.Reset();
+  m_gyro.SetYaw(0);
 }
 
 /**
@@ -70,7 +69,7 @@ void Robot::TeleopPeriodic() {
   ch_speeds.omega = omega_axis.GetAxis() * physical::kMaxTurnSpeed;
   
   auto states = m_kinematics.ToSwerveModuleStates( ch_speeds.FromFieldRelativeSpeeds( 
-    ch_speeds.vx, ch_speeds.vy, ch_speeds.omega, frc::Rotation2d{ units::degree_t{ -m_gyro.GetAngle() } } ) );
+    ch_speeds.vx, ch_speeds.vy, ch_speeds.omega, frc::Rotation2d{ units::degree_t{ m_gyro.GetYaw() } } ) );
   m_kinematics.DesaturateWheelSpeeds( &states, physical::kMaxDriveSpeed );
   auto [ fl, fr, bl, br ] = states;
   auto flOpp = m_frontLeft.SetDesiredState( fl );
@@ -79,7 +78,7 @@ void Robot::TeleopPeriodic() {
   auto brOpp = m_backRight.SetDesiredState( br );
   wpi::array opStates = {flOpp, frOpp, blOpp, brOpp};
   swerve_display.SetState( opStates );
-  frc::SmartDashboard::PutNumber("Gyro", m_gyro.GetAngle());
+  frc::SmartDashboard::PutNumber( "Gyro", m_gyro.GetYaw() );
 }
 
 void Robot::DisabledInit() {}
