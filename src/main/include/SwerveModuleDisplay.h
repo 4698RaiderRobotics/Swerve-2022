@@ -1,3 +1,4 @@
+#pragma once
 
 #include <frc/kinematics/SwerveModuleState.h>
 

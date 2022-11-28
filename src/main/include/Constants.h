@@ -3,6 +3,7 @@
 #include <wpi/numbers>
 #include <units/angle.h>
 #include <units/velocity.h>
+#include <units/acceleration.h>
 #include <units/angular_velocity.h>
 #include <units/length.h>
 
@@ -16,11 +17,29 @@ namespace pidf {
     constexpr double kDriveFF = 0.000015;
 }
 
+namespace deviceIDs {
+    const int kFrontLeftTurnMotorID = 1;
+    const int kFrontLeftDriveMotorID = 2;
+    const int kBackLeftTurnMotorID = 3;
+    const int kBackLeftDriveMotorID = 4;
+    const int kBackRightTurnMotorID = 5;
+    const int kBackRightDriveMotorID = 6;
+    const int kFrontRightTurnMotorID = 7;
+    const int kFrontRightDriveMotorID = 8;
+
+    const int kFrontLeftAbsoluteEncoderID = 0;
+    const int kFrontRightAbsoluteEncoderID = 1;
+    const int kBackLeftAbsoluteEncoderID = 2;
+    const int kBackRightAbsoluteEncoderID = 3;
+
+    const int kPigeonIMUID = 50;
+}
+
 namespace physical {
-    // Max drive speed of Mk3 swerve modules.
+    // Max drive speed of Mk3 swerve modules during teleop
     constexpr units::meters_per_second_t kMaxDriveSpeed = 14.4_fps * 0.5;
 
-    // The max speed of the turn motors
+    // The max speed of the turn motors during teleop
     constexpr auto kMaxTurnSpeed =  5_rad_per_s;
 
     // Gear ratio of the drive motors. 6.86 rotations of the drive motor is one rotation of the wheel.

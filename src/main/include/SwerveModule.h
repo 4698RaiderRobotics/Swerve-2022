@@ -20,9 +20,10 @@ class SwerveModule {
     public:
         SwerveModule( const int turnMotorChannel, const int driveMotorChannel, const int absoluteEncoderChannel, const double absoluteEncoderOffset );
 
-
         // Sets motors to the optimized wheel state and returns the optimized state
         frc::SwerveModuleState SetDesiredState( const frc::SwerveModuleState& state );
+
+        frc::SwerveModuleState GetState( void );
 
     private:
         rev::CANSparkMax m_driveMotor;
@@ -31,6 +32,11 @@ class SwerveModule {
         rev::SparkMaxRelativeEncoder m_driveEncoder = m_driveMotor.GetEncoder();
         AbsoluteEncoder m_turnEncoder;
 
+        // The drive motor uses an onboard PID controller (rev::SparkMaxPIDController). 
+        // The motor is automatically set by the PID controller.
         rev::SparkMaxPIDController m_drivePIDController = m_driveMotor.GetPIDController();
+
+        // The turn motor uses the software PID controller (frc2::PIDController). 
+        // The motor needs to be set with the Set() function with the PID controller's output.
         frc2::PIDController m_turnPIDController{ pidf::kTurnP, pidf::kTurnI, pidf::kTurnD };
 };

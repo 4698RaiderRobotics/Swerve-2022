@@ -10,6 +10,7 @@ class AbsoluteEncoder{
                         m_absoluteEncoder{absoluteEncoderChannel}, 
                         m_absoluteEncoderOffset{absoluteEncoderOffset} { }
 
+        // Returns the angle in degrees
         units::degree_t GetPosition( void ) {
             return ( m_absoluteEncoder.GetAbsolutePosition() - m_absoluteEncoderOffset ) * 360_deg - 180_deg;
         }

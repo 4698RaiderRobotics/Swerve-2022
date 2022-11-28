@@ -7,78 +7,74 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 
 #include <frc/MathUtil.h>
+#include <frc/trajectory/TrajectoryConfig.h>
+#include <frc/trajectory/TrajectoryGenerator.h>
 
 #include "Robot.h"
-#include "Constants.h"
+
 
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
-  m_gyro.SetYaw(0);
+  frc::SmartDashboard::PutData( "Field", &m_field );
+
+  m_drivetrain.ResetGyro();
+  m_drivetrain.ResetPose();
 }
 
-/**
- * This function is called every 20 ms, no matter the mode. Use
- * this for items like diagnostics that you want ran during disabled,
- * autonomous, teleoperated and test.
- *
- * <p> This runs after the mode specific periodic functions, but before
- * LiveWindow and SmartDashboard integrated updating.
- */
-void Robot::RobotPeriodic() {}
 
-/**
- * This autonomous (along with the chooser code above) shows how to select
- * between different autonomous modes using the dashboard. The sendable chooser
- * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
- * remove all of the chooser code and uncomment the GetString line to get the
- * auto name from the text box below the Gyro.
- *
- * You can add additional auto modes by adding additional comparisons to the
- * if-else structure below with additional strings. If using the SendableChooser
- * make sure to add them to the chooser code above as well.
- */
+void Robot::RobotPeriodic() {
+  m_field.SetRobotPose( m_drivetrain.GetPose() );
+}
+
 void Robot::AutonomousInit() {
   m_autoSelected = m_chooser.GetSelected();
-  // m_autoSelected = SmartDashboard::GetString("Auto Selector",
-  //     kAutoNameDefault);
+
   fmt::print("Auto selected: {}\n", m_autoSelected);
 
   if (m_autoSelected == kAutoNameCustom) {
-    // Custom Auto goes here
+    const frc::Pose2d startPose{ 0_ft, 0_ft, frc::Rotation2d{ 0_deg } };
+    const frc::Pose2d endPose{ 8_ft, 8_ft, frc::Rotation2d{ 90_deg } };
+
+    std::vector<frc::Translation2d> interiorWaypoints{
+      frc::Translation2d{ 5.65_ft, 2.35_ft }
+    };
+
+    frc::TrajectoryConfig config{ 7_fps, 5_fps_sq };
+
+    m_trajectory = frc::TrajectoryGenerator::GenerateTrajectory(startPose, interiorWaypoints, endPose, config);
   } else {
-    // Default Auto goes here
+    const frc::Pose2d startPose{ 0_ft, 0_ft, frc::Rotation2d{ 0_deg } };
+    const frc::Pose2d endPose{ 8_ft, 0_ft, frc::Rotation2d{ 0_deg } };
+
+    std::vector<frc::Translation2d> interiorWaypoints{
+      frc::Translation2d{ 4_ft, 0_ft }
+    };
+
+    frc::TrajectoryConfig config{ 7_fps, 5_fps_sq };
+
+    m_trajectory = frc::TrajectoryGenerator::GenerateTrajectory(startPose, interiorWaypoints, endPose, config);
   }
+
+  m_field.GetObject("traj")->SetTrajectory(m_trajectory);
+
+  m_autoElapsed = 0_ms;
 }
 
 void Robot::AutonomousPeriodic() {
-  if (m_autoSelected == kAutoNameCustom) {
-    // Custom Auto goes here
-  } else {
-    // Default Auto goes here
-  }
+  auto goal = m_trajectory.Sample( m_autoElapsed );
+
+  m_drivetrain.DriveTrajectory( goal );
+
+  m_autoElapsed += 20_ms;
 }
 
 void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() {
-  ch_speeds.vx = vx_axis.GetAxis() * physical::kMaxDriveSpeed;
-  ch_speeds.vy = vy_axis.GetAxis() * physical::kMaxDriveSpeed;
-  ch_speeds.omega = omega_axis.GetAxis() * physical::kMaxTurnSpeed;
-  
-  auto states = m_kinematics.ToSwerveModuleStates( ch_speeds.FromFieldRelativeSpeeds( 
-    ch_speeds.vx, ch_speeds.vy, ch_speeds.omega, frc::Rotation2d{ units::degree_t{ m_gyro.GetYaw() } } ) );
-  m_kinematics.DesaturateWheelSpeeds( &states, physical::kMaxDriveSpeed );
-  auto [ fl, fr, bl, br ] = states;
-  auto flOpp = m_frontLeft.SetDesiredState( fl );
-  auto frOpp = m_frontRight.SetDesiredState( fr );
-  auto blOpp = m_backLeft.SetDesiredState( bl );
-  auto brOpp = m_backRight.SetDesiredState( br );
-  wpi::array opStates = {flOpp, frOpp, blOpp, brOpp};
-  swerve_display.SetState( opStates );
-  frc::SmartDashboard::PutNumber( "Gyro", m_gyro.GetYaw() );
+  m_drivetrain.DriveWithJoystick( vx_axis.GetAxis(), vy_axis.GetAxis(), omega_axis.GetAxis() );
 }
 
 void Robot::DisabledInit() {}
