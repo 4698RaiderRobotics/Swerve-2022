@@ -15,7 +15,7 @@
 class Drivetrain {
   public:
 
-    void DriveWithJoystick( double x, double y, double omega );
+    void Drive( frc::ChassisSpeeds speeds, bool fieldRelative = true );
 
     void DriveTrajectory( frc::Trajectory::State trajectoryState );
 
@@ -36,8 +36,6 @@ class Drivetrain {
                             deviceIDs::kBackLeftAbsoluteEncoderID, physical::kBackLeftAbsoluteOffset };
     SwerveModule m_backRight{ deviceIDs::kBackRightTurnMotorID, deviceIDs::kBackRightDriveMotorID, 
                             deviceIDs::kBackRightAbsoluteEncoderID, physical::kBackRightAbsoluteOffset };
-
-    frc::ChassisSpeeds m_speeds;
 
     frc::Trajectory m_trajectory;
 

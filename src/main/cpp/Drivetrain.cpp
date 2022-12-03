@@ -2,13 +2,10 @@
 
 // Drives with joystick inputs
 // This takes -1 to 1 inputs
-void Drivetrain::DriveWithJoystick( double x, double y, double omega ) {
-    m_speeds.vx = x * physical::kMaxDriveSpeed;
-    m_speeds.vy = y * physical::kMaxDriveSpeed;
-    m_speeds.omega = omega * physical::kMaxTurnSpeed;
-    
-    auto states = m_kinematics.ToSwerveModuleStates( m_speeds.FromFieldRelativeSpeeds( 
-                    m_speeds.vx, m_speeds.vy, m_speeds.omega, frc::Rotation2d{ units::degree_t{ m_gyro.GetYaw() } } ) );
+void Drivetrain::Drive( frc::ChassisSpeeds speeds, bool fieldRelative ) {
+    auto states = m_kinematics.ToSwerveModuleStates( fieldRelative ? speeds.FromFieldRelativeSpeeds( 
+                    speeds.vx, speeds.vy, speeds.omega, frc::Rotation2d{ units::degree_t{ m_gyro.GetYaw() } } ) :
+                    speeds );
     m_kinematics.DesaturateWheelSpeeds( &states, physical::kMaxDriveSpeed );
 
     auto [ fl, fr, bl, br ] = states;
@@ -17,8 +14,6 @@ void Drivetrain::DriveWithJoystick( double x, double y, double omega ) {
     auto frState = m_frontRight.SetDesiredState( fr );
     auto blState = m_backLeft.SetDesiredState( bl );
     auto brState = m_backRight.SetDesiredState( br );
-
-    
 
     wpi::array opStates = {flState, frState, blState, brState};
     swerve_display.SetState( opStates );

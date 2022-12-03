@@ -20,8 +20,9 @@ void Robot::RobotInit() {
 
   frc::SmartDashboard::PutData( "Field", &m_field );
 
+  m_limelight.SetPipeline( 0 );
+
   m_drivetrain.ResetGyro();
-  m_drivetrain.ResetPose();
 }
 
 
@@ -30,6 +31,9 @@ void Robot::RobotPeriodic() {
 }
 
 void Robot::AutonomousInit() {
+  m_drivetrain.ResetGyro();
+  m_drivetrain.ResetPose();
+
   m_autoSelected = m_chooser.GetSelected();
 
   fmt::print("Auto selected: {}\n", m_autoSelected);
@@ -74,8 +78,17 @@ void Robot::AutonomousPeriodic() {
 void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() {
-  m_drivetrain.DriveWithJoystick( vx_axis.GetAxis(), vy_axis.GetAxis(), omega_axis.GetAxis() );
+  if( m_xbox.GetAButton() ) {
+    m_drivetrain.Drive( m_limelight.TargetRobot(), false );
+    
+  } else {
+    m_speeds.vx = vx_axis.GetAxis() * physical::kMaxDriveSpeed;
+    m_speeds.vy = vy_axis.GetAxis() * physical::kMaxDriveSpeed;
+    m_speeds.omega = omega_axis.GetAxis() * physical::kMaxTurnSpeed;
+    m_drivetrain.Drive( m_speeds );
+  }
 }
+
 
 void Robot::DisabledInit() {}
 
