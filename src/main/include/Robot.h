@@ -55,7 +55,7 @@ class Robot : public frc::TimedRobot {
   ControllerAxis omega_axis{m_xbox, frc::XboxController::Axis::kRightX, true};
 
   Drivetrain m_drivetrain;
-  frc::ChassisSpeeds m_speeds;
+  frc::ChassisSpeeds m_speeds; 
 
   Limelight m_limelight;
   

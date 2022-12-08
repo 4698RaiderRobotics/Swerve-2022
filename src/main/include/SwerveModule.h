@@ -20,7 +20,6 @@ class SwerveModule {
     public:
         SwerveModule( const int turnMotorChannel, const int driveMotorChannel, const int absoluteEncoderChannel, const double absoluteEncoderOffset );
 
-        // Sets motors to the optimized wheel state and returns the optimized state
         frc::SwerveModuleState SetDesiredState( const frc::SwerveModuleState& state );
 
         frc::SwerveModuleState GetState( void );

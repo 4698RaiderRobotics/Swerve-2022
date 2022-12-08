@@ -1,0 +1,7 @@
+= Swerve-2022
+
+Offseason 2022 swerve drive
+
+The swerve drive has three vector controls, x, y, and omega (angular velocity). Straight forward is positive x direction, straight left is positive y direction, and counter-clockwise is positive omega. The https://github.wpilib.org/allwpilib/docs/release/cpp/structfrc_1_1_chassis_speeds.html[ChassisSpeeds object] stores these three values in one object. The robot takes in the joystick commands for x speed, y speed, and omega (rotational) speed and adds  them to a ChassisSpeeds object. The ChassisSpeeds values are robot relative, meaning positive x is forward on the robot. They can be changed to field relative, meaning positive x is directly away from you, with a gyro. The ChassisSpeeds object is then split up into an array of 4 individual https://github.wpilib.org/allwpilib/docs/release/cpp/structfrc_1_1_swerve_module_state.html[SwerveModuleStates objects] using the https://github.wpilib.org/allwpilib/docs/release/cpp/classfrc_1_1_swerve_drive_kinematics.html[SwerveDriveKinematics class]. These SwerveModuleStates can be sent to each individual swerve module and the motors can be set using this.
+
+More information can be found at https://dominik.win/blog/programming-swerve-drive/[this blog] and https://www.youtube.com/watch?v=0Xi9yb1IMyA[this video].
