@@ -16,11 +16,12 @@
 #include "AbsoluteEncoder.h"
 #include "Constants.h"
 
+// Class for each swerve module on the robot
 class SwerveModule {
     public:
         SwerveModule( const int turnMotorChannel, const int driveMotorChannel, const int absoluteEncoderChannel, const double absoluteEncoderOffset );
 
-        frc::SwerveModuleState SetDesiredState( const frc::SwerveModuleState& state );
+        void SetDesiredState( const frc::SwerveModuleState& state );
 
         frc::SwerveModuleState GetState( void );
 

@@ -1,5 +1,6 @@
 #include "Limelight.h"
 
+// Targets the robot based on the input from the limelight camera
 frc::ChassisSpeeds Limelight::TargetRobot( void ) {
     targetX = table->GetNumber("tx",0.0);
     targetY = table->GetNumber("ty",0.0);
@@ -13,6 +14,7 @@ frc::ChassisSpeeds Limelight::TargetRobot( void ) {
     return t_speeds;
 }
 
+// Sets the limelight to new targeting settings
 void Limelight::SetPipeline( int pipelineId ) {
     table->PutNumber( "pipeline", pipelineId );
 }

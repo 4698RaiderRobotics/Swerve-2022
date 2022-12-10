@@ -12,17 +12,17 @@ void Drivetrain::Drive( frc::ChassisSpeeds speeds, bool fieldRelative ) {
     auto [ fl, fr, bl, br ] = states;
 
     // Sets each SwerveModule to the correct SwerveModuleState
+    m_frontLeft.SetDesiredState( fl );
+    m_frontRight.SetDesiredState( fr );
+    m_backLeft.SetDesiredState( bl );
+    m_backRight.SetDesiredState( br );
 
-    auto flState = m_frontLeft.SetDesiredState( fl );
-    auto frState = m_frontRight.SetDesiredState( fr );
-    auto blState = m_backLeft.SetDesiredState( bl );
-    auto brState = m_backRight.SetDesiredState( br );
-
-    wpi::array opStates = {flState, frState, blState, brState};
+    wpi::array opStates = { m_frontLeft.GetState(), m_frontRight.GetState(), m_backLeft.GetState(), m_backRight.GetState() };
     // Displays the SwerveModules current position
     swerve_display.SetState( opStates );
 
-    m_odometry.Update( frc::Rotation2d{ units::degree_t{ m_gyro.GetYaw() } }, flState, frState, blState, brState );
+    // Updates the odometry of the robot given the SwerveModules' states
+    m_odometry.Update( frc::Rotation2d{ units::degree_t{ m_gyro.GetYaw() } }, m_frontLeft.GetState(), m_frontRight.GetState(), m_backLeft.GetState(), m_backRight.GetState() );
 }
 
 // Drives a path given a trajectory state

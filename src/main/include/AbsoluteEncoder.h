@@ -3,6 +3,7 @@
 #include <frc/DutyCycleEncoder.h>
 #include <units/angle.h>
 
+// Uses the DutyCycleEncoder class to use an SRX mag absolute encoder
 class AbsoluteEncoder{
     public:
         // Offset must in the range from 0 to 1

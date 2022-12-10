@@ -25,7 +25,9 @@ class Limelight {
         // The Y position of the target in the limelight's view
         double targetY;
 
+        // P value for omega targeting
         double kOmegaP = 0.02;
+        // P value for x targeting
         double kxP = 0.05;
 
         frc::ChassisSpeeds t_speeds;

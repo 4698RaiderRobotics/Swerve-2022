@@ -63,5 +63,6 @@ class Robot : public frc::TimedRobot {
 
   frc::Trajectory m_trajectory;
 
+  // Elasped time in autonomous periodic since the beginning of the program
   units::second_t m_autoElapsed;
 };
