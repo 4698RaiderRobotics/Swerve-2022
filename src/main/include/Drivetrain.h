@@ -21,9 +21,9 @@ class Drivetrain {
 
     frc::Pose2d GetPose( void );
 
-    void ResetGyro( void );
+    void ResetGyro( int angle );
 
-    void ResetPose( void );
+    void ResetPose( frc::Translation2d position );
 
   private:
     SwerveStatusDisplay swerve_display{ "Swerve Drive", "Robot Wheel Status" };

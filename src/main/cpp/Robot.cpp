@@ -22,7 +22,7 @@ void Robot::RobotInit() {
 
   m_limelight.SetPipeline( 0 );
 
-  m_drivetrain.ResetGyro();
+  m_drivetrain.ResetGyro( 0 );
 }
 
 
@@ -31,8 +31,8 @@ void Robot::RobotPeriodic() {
 }
 
 void Robot::AutonomousInit() {
-  m_drivetrain.ResetGyro();
-  m_drivetrain.ResetPose();
+  m_drivetrain.ResetGyro( 0 );
+  m_drivetrain.ResetPose( frc::Translation2d{ 0_ft, 0_ft } );
 
   m_autoSelected = m_chooser.GetSelected();
 
