@@ -14,6 +14,7 @@
     "**/.factorypath": true,
     "**/*~": true
   },
+<<<<<<< HEAD
   "C_Cpp.default.configurationProvider": "vscode-wpilib",
   "files.associations": {
     "*.inc": "cpp",
@@ -80,4 +81,7 @@
     "cinttypes": "cpp",
     "typeinfo": "cpp"
   }
+=======
+  "C_Cpp.default.configurationProvider": "vscode-wpilib"
+>>>>>>> e97d0f2 (2023 import)
 }
