@@ -81,7 +81,4 @@
     "cinttypes": "cpp",
     "typeinfo": "cpp"
   }
-=======
-  "C_Cpp.default.configurationProvider": "vscode-wpilib"
->>>>>>> e97d0f2 (2023 import)
 }
