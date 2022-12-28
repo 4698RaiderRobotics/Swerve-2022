@@ -15,14 +15,16 @@ double SwerveHeading::GetHeading( void ) {
 void SwerveHeading::InitSendable(wpi::SendableBuilder& builder) {
     builder.SetSmartDashboardType("Gyro");
   builder.AddDoubleProperty(
-      "Value", [=] { return GetHeading(); }, nullptr);
+      "Value", [=, this] { return GetHeading(); }, nullptr);
 }
 
 SwerveModuleDisplay::SwerveModuleDisplay( std::string tab, std::string name, std::string layout, int row, int col ) {
     m_tab = tab;
     m_name = name;
     m_layout = layout;
-
+//Like 55% sure this is a wpi issue. 
+// For some reason String Map isn't working 
+/*
     wpi::StringMap<std::shared_ptr<nt::Value>> layout_properties{
         std::make_pair("Number of rows", nt::Value::MakeDouble(4)),
         std::make_pair("Number of columns", nt::Value::MakeDouble(2))        
@@ -56,9 +58,8 @@ SwerveModuleDisplay::SwerveModuleDisplay( std::string tab, std::string name, std
         .WithProperties(speed_properties)
         .WithPosition(col-1, rowidx + 1)
         .GetEntry();    
-
+*/
 }
-
 void SwerveModuleDisplay::SetHeading( double heading ) {
     m_heading.SetHeading( heading );
 }

@@ -51,5 +51,5 @@ frc::SwerveModuleState SwerveModule::GetState( void ) {
 // Return the current "position" of the SwerveModule 
 // I don't really know what position even represent here🤷‍♂️
 frc::SwerveModulePosition SwerveModule::GetPosition( void ) {
-    return { units::meter_t{ m_driveEncoder.GetPosition()}, units::radian_t{ m_turnEncoder.GetPosition() } }
+    return { units::meter_t{ m_driveEncoder.GetPosition()}, units::radian_t{ m_turnEncoder.GetPosition() } };
 }

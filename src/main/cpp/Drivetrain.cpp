@@ -51,5 +51,12 @@ void Drivetrain::ResetGyro( int angle ) {
 
 // Resets the pose to a position
 void Drivetrain::ResetPose( frc::Translation2d position ) {
-    m_odometry.ResetPosition( frc::Pose2d{ position.X(), position.Y(), units::degree_t{ m_gyro.GetYaw() } }, frc::Rotation2d{ units::degree_t{ m_gyro.GetYaw() } } );
+    m_odometry.ResetPosition(
+        frc::Rotation2d{   units::degree_t{ m_gyro.GetYaw() }  },
+        {
+            m_frontLeft.GetPosition(), m_frontRight.GetPosition(), 
+            m_backLeft.GetPosition(), m_backRight.GetPosition() 
+        },
+        frc::Pose2d{ position.X(), position.Y(), units::degree_t{ m_gyro.GetYaw() } }
+    );
 }
