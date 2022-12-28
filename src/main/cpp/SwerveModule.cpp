@@ -1,6 +1,6 @@
 #include "SwerveModule.h"
 
-#include <wpi/numbers>
+#include <numbers>
 #include <cmath>
 #include "units/angle.h"
 #include "units/base.h"
@@ -47,4 +47,9 @@ void SwerveModule::SetDesiredState( const frc::SwerveModuleState& referenceState
 // Returns the current state of the SwerveModule
 frc::SwerveModuleState SwerveModule::GetState( void ) {
     return { units::meters_per_second_t{ m_driveEncoder.GetVelocity() }, units::radian_t{ m_turnEncoder.GetPosition() } };
+}
+// Return the current "position" of the SwerveModule 
+// I don't really know what position even represent here🤷‍♂️
+frc::SwerveModulePosition SwerveModule::GetPosition( void ) {
+    return { units::meter_t{ m_driveEncoder.GetPosition()}, units::radian_t{ m_turnEncoder.GetPosition() } }
 }

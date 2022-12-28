@@ -22,7 +22,13 @@ void Drivetrain::Drive( frc::ChassisSpeeds speeds, bool fieldRelative ) {
     swerve_display.SetState( opStates );
 
     // Updates the odometry of the robot given the SwerveModules' states
-    m_odometry.Update( frc::Rotation2d{ units::degree_t{ m_gyro.GetYaw() } }, m_frontLeft.GetState(), m_frontRight.GetState(), m_backLeft.GetState(), m_backRight.GetState() );
+
+    //needs to be an array
+    m_odometry.Update( frc::Rotation2d{ units::degree_t{ m_gyro.GetYaw() } },
+    {
+        m_frontLeft.GetPosition(), m_frontRight.GetPosition(), 
+        m_backLeft.GetPosition(), m_backRight.GetPosition() 
+    });
 }
 
 // Drives a path given a trajectory state
