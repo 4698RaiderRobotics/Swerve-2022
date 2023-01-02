@@ -2,7 +2,8 @@
 #include "SwerveModuleDisplay.h"
 
 #include <wpi/sendable/SendableBuilder.h>
-#include <frc/shuffleboard/BuiltinWidgets.h>
+#include <wpi/sendable/SendableBuilder.h>
+#include <frc/shuffleboard/BuiltInWidgets.h>
 
 void SwerveHeading::SetHeading( double heading ) {
   m_heading = heading;
