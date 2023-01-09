@@ -1,3 +1,5 @@
+https://github.com/4698RaiderRobotics/Swerve-2022/actions/workflows/build_2023.yml[image:https://github.com/4698RaiderRobotics/Swerve-2022/actions/workflows/build_2023.yml/badge.svg?branch=2023[CI]]
+
 = Swerve-2022
 
 Offseason 2022 swerve drive
