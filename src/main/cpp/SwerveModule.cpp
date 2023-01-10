@@ -50,5 +50,5 @@ frc::SwerveModuleState SwerveModule::GetState( void ) {
 }
 
 frc::SwerveModulePosition SwerveModule::GetPosition( void ) {
-    return { units::meter_t{ m_driveEncoder.GetPosition() * physical::kDriveMetersPerRotation }, units::radian_t{ m_turnEncoder.GetPosition() } };
+    return { units::turn_t{ m_driveEncoder.GetPosition() } * physical::kDriveMetersPerRotation, m_turnEncoder.GetPosition()  };
 }
