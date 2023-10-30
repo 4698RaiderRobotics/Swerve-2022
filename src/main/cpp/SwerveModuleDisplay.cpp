@@ -16,7 +16,7 @@ double SwerveHeading::GetHeading( void ) {
 void SwerveHeading::InitSendable(wpi::SendableBuilder& builder) {
     builder.SetSmartDashboardType("Gyro");
   builder.AddDoubleProperty(
-      "Value", [=] { return GetHeading(); }, nullptr);
+      "Value", [=, this] { return GetHeading(); }, nullptr);
 }
 
 SwerveModuleDisplay::SwerveModuleDisplay( std::string tab, std::string name, std::string layout, int row, int col ) {
@@ -24,14 +24,14 @@ SwerveModuleDisplay::SwerveModuleDisplay( std::string tab, std::string name, std
     m_name = name;
     m_layout = layout;
 
-    wpi::StringMap<std::shared_ptr<nt::Value>> layout_properties{
+    wpi::StringMap<nt::Value> layout_properties{
         std::make_pair("Number of rows", nt::Value::MakeDouble(4)),
         std::make_pair("Number of columns", nt::Value::MakeDouble(2))        
     };
-    wpi::StringMap<std::shared_ptr<nt::Value>> angle_properties{
+    wpi::StringMap<nt::Value> angle_properties{
         std::make_pair("Counter clockwise", nt::Value::MakeBoolean(true))        
     };
-    wpi::StringMap<std::shared_ptr<nt::Value>> speed_properties{
+    wpi::StringMap<nt::Value> speed_properties{
         std::make_pair("min", nt::Value::MakeDouble(-1)),
         std::make_pair("max", nt::Value::MakeDouble(1))        
     };
@@ -57,9 +57,7 @@ SwerveModuleDisplay::SwerveModuleDisplay( std::string tab, std::string name, std
         .WithProperties(speed_properties)
         .WithPosition(col-1, rowidx + 1)
         .GetEntry();    
-
 }
-
 void SwerveModuleDisplay::SetHeading( double heading ) {
     m_heading.SetHeading( heading );
 }
@@ -70,7 +68,7 @@ double SwerveModuleDisplay::GetHeading( void ) {
 
 void SwerveModuleDisplay::SetSpeed( double speed ) {
     m_speed = speed;
-    m_speed_entry.SetDouble( m_speed );
+    m_speed_entry->SetDouble( m_speed );
 }
 
 double SwerveModuleDisplay::GetSpeed( void ) {

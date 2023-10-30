@@ -1,5 +1,4 @@
 #pragma once
-
 #include <frc/kinematics/SwerveDriveKinematics.h>
 #include <frc/kinematics/SwerveDriveOdometry.h>
 #include <frc/kinematics/ChassisSpeeds.h>
@@ -7,6 +6,7 @@
 #include <ctre/phoenix/sensors/PigeonIMU.h>
 #include <frc/geometry/Pose2d.h>
 #include <units/time.h>
+using namespace units::literals;
 
 #include "SwerveModule.h"
 #include "SwerveModuleDisplay.h"
@@ -47,10 +47,14 @@ class Drivetrain {
     frc::Translation2d m_backRightLocation{ -( physical::kDriveBaseWidth / 2 ), -( physical::kDriveBaseWidth / 2 ) };
 
     frc::SwerveDriveKinematics<4> m_kinematics{ m_frontLeftLocation, m_frontRightLocation, 
-                                              m_backLeftLocation,m_backRightLocation };
-
-    frc::SwerveDriveOdometry<4> m_odometry{m_kinematics, frc::Rotation2d{ 0_deg }, frc::Pose2d{ 0_ft, 0_ft, 0_deg } };
-
+                                              m_backLeftLocation,m_backRightLocation};
+    frc::SwerveDriveOdometry<4> m_odometry{m_kinematics, frc::Rotation2d{ 0_deg },
+      {
+        m_frontLeft.GetPosition(), m_frontRight.GetPosition(),
+        m_backLeft.GetPosition(), m_backRight.GetPosition()
+      },
+      frc::Pose2d{ 0_ft, 0_ft, 0_deg } 
+    };
     // Drive controller for driving a trajectory
     frc::HolonomicDriveController m_controller{ 
           frc2::PIDController{ 1, 0, 0 }, frc2::PIDController{ 1, 0, 0 },

@@ -20,7 +20,6 @@
 #include <ctre/phoenix/sensors/PigeonIMU.h>
 #include <units/time.h>
 #include <frc/smartdashboard/Field2d.h>
-
 #include "SwerveModuleDisplay.h"
 #include "SwerveModule.h"
 #include "Constants.h"

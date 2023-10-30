@@ -9,7 +9,9 @@
 #include <frc/MathUtil.h>
 #include <frc/trajectory/TrajectoryConfig.h>
 #include <frc/trajectory/TrajectoryGenerator.h>
-
+#include <frc/geometry/Pose2d.h>
+#include <frc/geometry/Pose3d.h>
+#include <frc/geometry/Translation2d.h>
 #include "Robot.h"
 
 

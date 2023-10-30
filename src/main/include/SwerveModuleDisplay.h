@@ -6,7 +6,7 @@
 #include <wpi/sendable/Sendable.h>
 #include <frc/shuffleboard/Shuffleboard.h>
 #include <networktables/NetworkTable.h>
-#include <networktables/NetworkTableEntry.h>
+#include <networktables/GenericEntry.h>
 
 class SwerveHeading : public wpi::Sendable {
   public:
@@ -34,7 +34,7 @@ class SwerveModuleDisplay {
     std::string m_name;
     std::string m_layout;
     double m_speed;
-    nt::NetworkTableEntry m_speed_entry;
+    nt::GenericEntry *m_speed_entry;
 };
 
 class SwerveStatusDisplay {

@@ -1,12 +1,13 @@
 #pragma once
 
 #include <frc/kinematics/ChassisSpeeds.h>
+
 #include "frc/smartdashboard/SmartDashboard.h"
 #include "networktables/NetworkTable.h"
 #include "networktables/NetworkTableInstance.h"
 #include "networktables/NetworkTableEntry.h"
 #include "networktables/NetworkTableValue.h"
-#include "wpi/span.h"
+#include <span>
 
 #include "Constants.h"
 

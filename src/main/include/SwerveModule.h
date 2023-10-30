@@ -7,6 +7,7 @@
 #include <units/velocity.h>
 
 #include <frc/kinematics/SwerveModuleState.h>
+#include <frc/kinematics/SwerveModulePosition.h>
 #include <frc/controller/PIDController.h>
 
 #include <rev/CANSparkMax.h>
@@ -24,7 +25,7 @@ class SwerveModule {
         void SetDesiredState( const frc::SwerveModuleState& state );
 
         frc::SwerveModuleState GetState( void );
-
+        frc::SwerveModulePosition GetPosition ( void );
     private:
         rev::CANSparkMax m_driveMotor;
         rev::CANSparkMax m_turnMotor;

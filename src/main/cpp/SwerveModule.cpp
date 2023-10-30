@@ -1,6 +1,6 @@
 #include "SwerveModule.h"
 
-#include <wpi/numbers>
+#include <numbers>
 #include <cmath>
 #include "units/angle.h"
 #include "units/base.h"
@@ -47,4 +47,8 @@ void SwerveModule::SetDesiredState( const frc::SwerveModuleState& referenceState
 // Returns the current state of the SwerveModule
 frc::SwerveModuleState SwerveModule::GetState( void ) {
     return { units::meters_per_second_t{ m_driveEncoder.GetVelocity() }, units::radian_t{ m_turnEncoder.GetPosition() } };
+}
+
+frc::SwerveModulePosition SwerveModule::GetPosition( void ) {
+    return { units::turn_t{ m_driveEncoder.GetPosition() } * physical::kDriveMetersPerRotation, m_turnEncoder.GetPosition()  };
 }

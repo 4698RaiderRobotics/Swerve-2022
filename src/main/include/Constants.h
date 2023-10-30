@@ -1,6 +1,6 @@
 #pragma once
 
-#include <wpi/numbers>
+#include <numbers>
 #include <units/angle.h>
 #include <units/velocity.h>
 #include <units/acceleration.h>
@@ -51,8 +51,7 @@ namespace physical {
 
     // The number of meters traveled per rotation of the drive motor
     // wheel circumference / gear ratio
-    constexpr meters_per_rev_t kDriveMetersPerRotation = wpi::numbers::pi * 4_in / (kDriveGearRatio *  1_tr );
-
+    constexpr meters_per_rev_t kDriveMetersPerRotation = std::numbers::pi * 4_in / (kDriveGearRatio *  1_tr );
     // Gear ratio of the turn motors. 12.8 rotations of the turning motor is one rotation of the swerve module.
     constexpr double kTurnGearRatio = 12.8;
 
